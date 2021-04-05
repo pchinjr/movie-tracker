@@ -5,28 +5,19 @@ async function route(req) {
   console.log('post-watched:', req.body)
   let account = req.session.account.id
 
-  if(req.body.watched) {
+  if (req.body.watched) {
+    console.log('about to write')
     await data.set({
       table: `${account}-movies`,
-      key: req.body.movieId,
-      movies: {
-        movieId: req.body.movie,
-        watched: true
-      }
+      key: req.body.movieId
     })
   } else {
-    await data.set({
+    console.log('about to destroy')
+    await data.destroy({
       table: `${account}-movies`,
-      key: req.body.movieId,
-      movies: {
-        movieId: req.body.movie,
-        watched: false
-      }
+      key: req.body.movieId
     })
   }
-
-
-
 
   return {
     location: '/'
