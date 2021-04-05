@@ -15,7 +15,7 @@ function authControl(account) {
     let redirectURL = process.env.GITHUB_REDIRECT
     let href = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_url=${redirectURL}`
     return `
-    <a href='${href}'>Login</a>
+    <a href='${href}'>Login with GitHub to see a list of movies</a>
     `
   }
 }
@@ -45,7 +45,7 @@ async function getMovies(account) {
       let found = !!(accountMovies.find(m=> m.key === mov.key))
       result += movie({key: mov.key, title: mov.title, watched: found })
     }
-    return result 
+    return result
   }
   return ''
 }
