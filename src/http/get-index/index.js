@@ -23,9 +23,9 @@ function authControl(account) {
 function movie({ key, watched, title }) {
   return `<form action="/watched" method="post">
     <input type="hidden" name="movieId" value="${key}">
-    <input type="checkbox" name=watched ${ watched? 'checked' : ''}>
+    <input type="checkbox" data-movieid="${key}" name=watched ${ watched? 'checked' : ''}>
     ${title}
-    <button>Save</button>
+    <button class=cage>Save</button>
   </form>`
 }
 
@@ -60,6 +60,7 @@ async function http (req) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/_static/index.css">
   <title>Praise Cage</title>
 </head>
 <body>
