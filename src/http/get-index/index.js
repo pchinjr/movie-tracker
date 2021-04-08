@@ -1,5 +1,5 @@
-let arc = require('@architect/functions')
-let data = require('@begin/data')
+const arc = require('@architect/functions')
+const data = require('@begin/data')
 
 exports.handler = arc.http.async(http)
 

@@ -1,6 +1,8 @@
 const arc = require('@architect/functions')
 const github = require('./github')
 
+exports.handler = arc.http.async(login)
+
 async function login(req) {
   let account
   if (req.query.code) {
@@ -22,5 +24,3 @@ async function login(req) {
     }
   }
 }
-
-exports.handler = arc.http.async(login)

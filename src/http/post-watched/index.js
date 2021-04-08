@@ -1,18 +1,18 @@
-let arc = require('@architect/functions')
-let data = require('@begin/data')
+const arc = require('@architect/functions')
+const data = require('@begin/data')
+
+exports.handler = arc.http.async(route)
 
 async function route(req) {
   console.log('post-watched:', req.body)
   let account = req.session.account.id
 
   if (req.body.watched) {
-    console.log('about to write')
     await data.set({
       table: `${account}-movies`,
       key: req.body.movieId
     })
   } else {
-    console.log('about to destroy')
     await data.destroy({
       table: `${account}-movies`,
       key: req.body.movieId
@@ -23,5 +23,3 @@ async function route(req) {
     location: '/'
   }
 }
-
-exports.handler = arc.http.async(route)
