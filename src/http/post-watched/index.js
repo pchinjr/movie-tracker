@@ -4,12 +4,15 @@ const data = require('@begin/data')
 exports.handler = arc.http.async(route)
 
 async function route(req) {
+  console.log(req.body)
   let account = req.session.account.id
 
   if (req.body.watched) {
     await data.set({
       table: `${account}-movies`,
-      key: req.body.movieId
+      key: req.body.movieId,
+      review: req.body.review,
+      rating: req.body.rating
     })
   } else {
     await data.destroy({

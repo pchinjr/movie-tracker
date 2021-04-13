@@ -20,19 +20,21 @@ function authControl(account) {
   }
 }
 
-function movie({ key, watched, title }) {
+function movie({ key, watched, title, rating, review }) {
+
   return `<form action="/watched" method="post">
     <input type="hidden" name="movieId" value="${key}">
-    <input type="checkbox" data-movieid="${key}" name=watched ${ watched? 'checked' : ''}>
+    <input type="checkbox" data-movieid="${key}" name=watched ${watched ? 'checked' : ''}>
     ${title}
-    <input type="text" name="review" placeholder="leave a review here">
-    <input type="radio" name="review" value="1">
+    <input type="text" name="review" placeholder="leave a review here" value="${review || ''}">
+
+    <input type="radio" name="rating" value="1" ${rating === '1' ? 'checked' : ''}>
     <label for="1star">1</label>
 
-    <input type="radio" name="review" value="2">
+    <input type="radio" name="rating" value="2" ${rating === '2' ? 'checked' : ''}>
     <label for="2star">2</label>
 
-    <input type="radio" name="review" value="3">
+    <input type="radio" name="rating" value="3" ${rating === '3' ? 'checked' : ''}>
     <label for="3star">3</label>
     <button class=cage>Save</button>
   </form>`
@@ -40,26 +42,26 @@ function movie({ key, watched, title }) {
 
 async function getMovies(account) {
   let movies = [
-    {key: '001', title: 'Raising Arizona'},
-    {key: '002', title: 'Con Air'},
-    {key: '003', title: 'National Treasure'},
+    { key: '001', title: 'Raising Arizona' },
+    { key: '002', title: 'Con Air' },
+    { key: '003', title: 'National Treasure' },
   ]
   if (account) {
     let accountMovies = await data.get({
       table: `${account.id}-movies`
     })
-    console.log('found account movies', accountMovies)
+
     let result = ''
     for (let mov of movies) {
-      let found = !!(accountMovies.find(m=> m.key === mov.key))
-      result += movie({key: mov.key, title: mov.title, watched: found })
+      let found = (accountMovies.find(m => m.key === mov.key))
+      result += movie({ key: mov.key, title: mov.title, watched: !!found, rating: found? found.rating : '', review: found? found.review : ''})
     }
     return result
   }
   return ''
 }
 
-async function http (req) {
+async function http(req) {
 
   return {
     html: `
@@ -75,8 +77,8 @@ async function http (req) {
 <body>
 <h1>Praise Cage</h1>
 
-${ authControl(req.session.account) }
-${ await getMovies(req.session.account) }
+${authControl(req.session.account)}
+${await getMovies(req.session.account)}
 
 <script src=/_static/index.js type=module></script>
 </body>
