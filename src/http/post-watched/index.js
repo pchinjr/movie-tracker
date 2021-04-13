@@ -4,7 +4,6 @@ const data = require('@begin/data')
 exports.handler = arc.http.async(route)
 
 async function route(req) {
-  console.log('post-watched:', req)
   let account = req.session.account.id
 
   if (req.body.watched) {
