@@ -25,6 +25,15 @@ function movie({ key, watched, title }) {
     <input type="hidden" name="movieId" value="${key}">
     <input type="checkbox" data-movieid="${key}" name=watched ${ watched? 'checked' : ''}>
     ${title}
+    <input type="text" name="review" placeholder="leave a review here">
+    <input type="radio" name="review" value="1">
+    <label for="1star">1</label>
+
+    <input type="radio" name="review" value="2">
+    <label for="2star">2</label>
+
+    <input type="radio" name="review" value="3">
+    <label for="3star">3</label>
     <button class=cage>Save</button>
   </form>`
 }
