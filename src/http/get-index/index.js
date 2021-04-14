@@ -72,6 +72,7 @@ async function http(req) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/_static/index.css">
+  <link rel="shortcut icon" href="#">
   <title>Praise Cage</title>
 </head>
 <body>
