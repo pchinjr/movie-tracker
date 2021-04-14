@@ -22,21 +22,30 @@ function authControl(account) {
 
 function movie({ key, watched, title, rating, review }) {
 
-  return `<form action="/watched" method="post">
-    <input type="hidden" name="movieId" value="${key}">
-    <input type="checkbox" data-movieid="${key}" name=watched ${watched ? 'checked' : ''}>
-    ${title}
-    <input type="text" name="review" placeholder="leave a review here" value="${review || ''}">
+  return `
+<form action="/watched" method="post">
+  <input type="hidden" name="movieId" value="${key}">
+  <input type="checkbox" data-movieid="${key}" name=watched ${watched ? 'checked' : ''}>
+  ${title}
+  <input type="text" data-movieid="${key}" name="review" placeholder="leave a review here" value="${review || ''}">
 
-    <input type="radio" name="rating" value="1" ${rating === '1' ? 'checked' : ''}>
-    <label for="1star">1</label>
 
-    <input type="radio" name="rating" value="2" ${rating === '2' ? 'checked' : ''}>
-    <label for="2star">2</label>
+  <label>
+    <input type="radio" name="rating" data-movieid="${key}" value="1" ${rating === '1' ? 'checked' : ''}>
+    1
+  </label>
 
-    <input type="radio" name="rating" value="3" ${rating === '3' ? 'checked' : ''}>
-    <label for="3star">3</label>
-    <button class=cage>Save</button>
+  <label>
+    <input type="radio" name="rating" data-movieid="${key}" value="2" ${rating === '2' ? 'checked' : ''}>
+    2
+  </label>
+
+  <label>
+    <input type="radio" name="rating" data-movieid="${key}" value="3" ${rating === '3' ? 'checked' : ''}>
+    3
+  </label>
+
+  <button class=cage>Save</button>
   </form>`
 }
 
@@ -54,7 +63,13 @@ async function getMovies(account) {
     let result = ''
     for (let mov of movies) {
       let found = (accountMovies.find(m => m.key === mov.key))
-      result += movie({ key: mov.key, title: mov.title, watched: !!found, rating: found? found.rating : '', review: found? found.review : ''})
+      result += movie({
+        key: mov.key,
+        title: mov.title,
+        watched: !!found,
+        rating: found ? found.rating : '',
+        review: found ? found.review : ''
+      })
     }
     return result
   }
