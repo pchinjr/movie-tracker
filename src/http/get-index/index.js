@@ -29,21 +29,9 @@ function movie({ key, watched, title, rating, review }) {
   ${title}
   <input type="text" data-movieid="${key}" name="review" placeholder="leave a review here" value="${review || ''}">
 
-
-  <label>
-    <input type="radio" name="rating" data-movieid="${key}" value="1" ${rating === '1' ? 'checked' : ''}>
-    1
-  </label>
-
-  <label>
-    <input type="radio" name="rating" data-movieid="${key}" value="2" ${rating === '2' ? 'checked' : ''}>
-    2
-  </label>
-
-  <label>
-    <input type="radio" name="rating" data-movieid="${key}" value="3" ${rating === '3' ? 'checked' : ''}>
-    3
-  </label>
+  <input type="radio" name="rating" data-movieid="${key}" value="1" ${rating === '1' ? 'checked' : ''}>
+  <input type="radio" name="rating" data-movieid="${key}" value="2" ${rating === '2' ? 'checked' : ''}>
+  <input type="radio" name="rating" data-movieid="${key}" value="3" ${rating === '3' ? 'checked' : ''}>
 
   <button class=cage>Save</button>
   </form>`

@@ -18,21 +18,14 @@ for (let f of forms) {
   function changed (e) {
 
     let movieId = e.target.dataset.movieid
-    console.log(movieId)
     let payload = { movieId }
-    let watched = e.target.checked
-
-    if (watched) payload.watched = 'on'
+    payload.watched = f.querySelector('input[name="watched"]').checked
     payload.review = f.querySelectorAll('input[name="review"]')[0].value
 
     let rating = f.querySelectorAll('input[name="rating"]:checked')
     payload.rating = rating.length === 1 ? rating[0].value : ''
 
-    console.log(payload)
-
-    //new FormData()
-
-    //make an HTTP post with fetch
+   //make an HTTP post with fetch
 
     fetch('/watched', {
       method: 'POST',
