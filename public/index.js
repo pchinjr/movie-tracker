@@ -1,5 +1,7 @@
 let forms = document.querySelectorAll("form[action='/watched']")
 
+console.log(forms)
+
 for (let f of forms) {
 
   // hide all submit buttons
